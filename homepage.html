@@ -177,14 +177,14 @@ async function loadCars(){
 
         console.log(cars);
 
-        // your existing display code here
+        renderCars(cars);   // ADD THIS LINE
 
 
     } catch(error){
 
         console.error(error);
 
-        document.getElementById("car-container").innerHTML =
+        document.getElementById("car-grid").innerHTML =
         "Unable to load cars. Please check the server.";
 
     }
