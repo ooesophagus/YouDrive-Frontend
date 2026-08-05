@@ -16,8 +16,16 @@ async function adminFetch(url, options = {}) {
 
 
     if(!response.ok){
-        throw new Error("Request failed");
-    }
+
+    const errorData = await response.json();
+
+    throw new Error(
+        errorData.error || 
+        errorData.message || 
+        "Request failed"
+    );
+
+}
 
 
     return response.json();
