@@ -61,11 +61,22 @@ if (registerForm) {
 
         try {
             const result = await postJson(`${API}/api/user/register`, {
-                name,
-                email,
-                password,
-                role
-            });
+
+    full_name: name,
+
+    gmail: email,
+
+    password: password,
+
+    gender: "",
+
+    date_of_birth: null,
+
+    phone_number: "",
+
+    role: role
+
+});
             if (result.success) {
                 showMessage("register-message", "Registration successful. Please log in.");
                 setTimeout(() => window.location.href = "login.html", 1200);
