@@ -58,7 +58,7 @@ return Array.isArray(data)?data[0]:data;
 }
 
 async function fetchCars(){
-const response=await fetch(`${API}/api/cars`);
+const response=await fetch(`${API}/api/car`);
 
 if(!response.ok){
 throw new Error("Unable to load cars.");
