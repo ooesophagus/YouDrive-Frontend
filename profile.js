@@ -6,8 +6,12 @@ function getCurrentUser() {
 }
 
 function logoutUser() {
+
     localStorage.removeItem("youdriveUser");
-    window.location.href = "login.html";
+    localStorage.removeItem("token");
+
+    window.location.href="login.html";
+
 }
 
 const profileContainer = document.getElementById("profile-content");
