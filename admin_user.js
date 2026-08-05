@@ -1,6 +1,20 @@
+const API =
+"https://bxfxjwer34.execute-api.ap-southeast-1.amazonaws.com";
+
+
+const userList =
+document.getElementById("admin-user-list");
+
+
+
 function escapeHtml(text){
 
-    if(!text) return "";
+    if(text === null || text === undefined){
+
+        return "";
+
+    }
+
 
     return String(text)
 
@@ -18,30 +32,19 @@ function escapeHtml(text){
 
 
 
-const userList =
-document.getElementById("admin-user-list");
+function formatJoined(date){
 
+    if(!date){
 
-
-
-
-function formatJoined(value){
-
-    if(!value)
         return "-";
 
+    }
 
-    const date = new Date(value);
 
-
-    return Number.isNaN(date.getTime())
-
-    ? value
-
-    : date.toLocaleDateString("en-SG");
+    return new Date(date)
+    .toLocaleDateString("en-SG");
 
 }
-
 
 
 
@@ -49,16 +52,22 @@ function formatJoined(value){
 function renderUsers(users){
 
 
-    if(!users || users.length===0){
+    if(!users || users.length === 0){
 
 
-        userList.innerHTML=
+        userList.innerHTML = `
 
-        `<tr>
+        <tr>
+
         <td colspan="5">
-        No user accounts found.
+
+        No users found
+
         </td>
-        </tr>`;
+
+        </tr>
+
+        `;
 
 
         return;
@@ -67,64 +76,67 @@ function renderUsers(users){
 
 
 
-
-    userList.innerHTML = users.map(user=>{
-
-
-return `
-
-<tr>
-
-<td>
-<strong>
-${escapeHtml(user.full_name)}
-</strong>
-</td>
+    userList.innerHTML = users.map(user => {
 
 
-<td>
-${escapeHtml(user.gmail)}
-</td>
+        return `
+
+        <tr>
+
+        <td>
+
+        ${escapeHtml(user.full_name)}
+
+        </td>
 
 
-<td>
-${escapeHtml(user.phone_number || "-")}
-</td>
+        <td>
+
+        ${escapeHtml(user.gmail)}
+
+        </td>
 
 
-<td>
-${formatJoined(user.created_at)}
-</td>
+        <td>
+
+        ${escapeHtml(user.phone_number || "-")}
+
+        </td>
 
 
-<td>
+        <td>
 
-<button
+        ${formatJoined(user.created_at)}
 
-class="button button-danger admin-small-button"
-
-data-delete-user="${user.user_id}"
-
->
-
-Delete
-
-</button>
+        </td>
 
 
-</td>
+        <td>
 
 
-</tr>
+        <button
+
+        class="button button-danger"
+
+        onclick="deleteUser(${user.user_id})">
+
+        Delete
+
+        </button>
 
 
-`;
+        </td>
 
 
-}).join("");
+        </tr>
+
+
+        `;
+
+
+    }).join("");
 
 }
-
 
 
 
@@ -133,125 +145,156 @@ Delete
 async function loadUsers(){
 
 
-try{
+    try{
 
 
-const response =
-await adminFetch(`${API}/api/user`);
+        const response = await fetch(
 
+            `${API}/api/user`
 
+        );
 
-console.log(response);
 
 
+        if(!response.ok){
 
-renderUsers(response.users);
 
+            throw new Error(
+                "Unable to load users"
+            );
 
 
-}
+        }
 
-catch(error){
 
 
-console.error(error);
 
+        const data = await response.json();
 
 
-userList.innerHTML=
 
-`
+        console.log(data);
 
-<tr>
 
-<td colspan="5">
 
-Failed to fetch
+        renderUsers(
+            data.users
+        );
 
-</td>
 
-</tr>
 
-`;
+    }
 
 
-}
+    catch(error){
 
 
+        console.log(error);
 
-}
 
 
+        userList.innerHTML = `
 
+        <tr>
 
+        <td colspan="5">
 
+        Failed to fetch users
 
-userList.addEventListener(
+        </td>
 
-"click",
+        </tr>
 
-async(event)=>{
+        `;
 
 
-const button =
-event.target.closest("[data-delete-user]");
-
-
-
-if(!button)
-return;
-
-
-
-const id =
-button.dataset.deleteUser;
-
-
-
-
-if(!confirm("Delete this user?"))
-return;
-
-
-
-try{
-
-
-await adminFetch(
-
-`${API}/api/user/${id}`,
-
-{
-
-method:"DELETE"
-
-}
-
-);
-
-
-
-alert("User deleted successfully");
-
-
-
-loadUsers();
-
-
-
-}
-
-catch(error){
-
-
-alert(error.message);
+    }
 
 
 }
 
 
 
-});
+
+
+
+
+async function deleteUser(userId){
+
+
+    const confirmDelete =
+    confirm(
+        "Are you sure you want to delete this user?"
+    );
+
+
+
+    if(!confirmDelete){
+
+        return;
+
+    }
+
+
+
+
+
+    try{
+
+
+        const response = await fetch(
+
+            `${API}/api/user/${userId}`,
+
+            {
+
+                method:"DELETE"
+
+            }
+
+        );
+
+
+
+        if(!response.ok){
+
+
+            throw new Error(
+                "Delete failed"
+            );
+
+
+        }
+
+
+
+        alert(
+            "User deleted successfully"
+        );
+
+
+
+        loadUsers();
+
+
+
+    }
+
+
+
+    catch(error){
+
+
+        alert(
+            error.message
+        );
+
+
+    }
+
+
+}
+
 
 
 
