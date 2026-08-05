@@ -34,7 +34,7 @@ function renderAdminCars(cars) {
 
 async function loadAdminCars() {
   try {
-    const response = await fetch(`${API}/api/cars`);
+    const response = await fetch(`${API}/api/car`);
     if (!response.ok) throw new Error("Unable to load cars.");
     renderAdminCars(await response.json());
   } catch (error) {
