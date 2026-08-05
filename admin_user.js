@@ -27,7 +27,7 @@ function renderUsers(users) {
 }
 
 async function loadUsers() {
-  try { const data = await adminFetch(`${API}/api/admin/users`); renderUsers(data.users || []); }
+  try { const data = await adminFetch(`${API}/api/user`); renderUsers(data.users || []); }
   catch (error) { userList.innerHTML = `<tr><td colspan="5">${escapeHtml(error.message)}</td></tr>`; }
 }
 
@@ -43,7 +43,7 @@ userList.addEventListener("click", async event => {
   }
   button.disabled = true;
   try {
-    await adminFetch(`/api/admin/users/${encodeURIComponent(button.dataset.deleteUser)}`, { method: "DELETE" });
+    await adminFetch(`/api/user/${encodeURIComponent(button.dataset.deleteUser)}`, { method: "DELETE" });
     showAdminMessage("user-message", "User deleted successfully."); await loadUsers();
   } catch (error) { showAdminMessage("user-message", error.message, true); button.disabled = false; }
 });
