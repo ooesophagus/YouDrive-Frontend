@@ -10,4 +10,26 @@
     <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th><th>Action</th></tr></thead>
       <tbody id="admin-user-list"><tr><td colspan="5">Loading users…</td></tr></tbody></table></div>
   </section>
-</div><script src="admin.js"></script><script src="admin_user.js"></script></body></html>
+</div><script src="admin.js"></script><script src="admin_user.js"></script></body>
+<script>
+
+const currentUser =
+JSON.parse(
+localStorage.getItem("user")
+);
+
+
+
+if(
+    !currentUser ||
+    currentUser.role.toLowerCase() !== "admin"
+){
+
+    window.location.href =
+    "homepage.html";
+
+}
+
+
+</script>
+</html>
