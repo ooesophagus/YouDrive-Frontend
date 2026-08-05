@@ -61,8 +61,8 @@ async function loadCar(){
 
 
         const cars = await adminFetch(
-            `/api/car/${carId}`
-        );
+    `${API}/api/car/${encodeURIComponent(carId)}`
+);
 
 
         const car = cars[0];
@@ -147,18 +147,11 @@ try{
 
 
 await adminFetch(
-`/api/car/${carId}`,
-{
-
-method:"PUT",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(car)
-
-}
+    `${API}/api/car/${encodeURIComponent(carId)}`,
+    {
+        method:"PUT",
+        body:JSON.stringify(car)
+    }
 );
 
 
