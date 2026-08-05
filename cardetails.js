@@ -63,7 +63,7 @@ async function loadCarDetails() {
   }
 
   try {
-    const response = await fetch(`${API}/api/cars`);
+    const response = await fetch(`${API}/api/car`);
     if (!response.ok) {
       throw new Error("Unable to load cars from server");
     }
