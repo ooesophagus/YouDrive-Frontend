@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Details - YouDrive</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="homepage.html">YouDrive</a>
+      <nav class="nav-links">
+        <a href="homepage.html">Home</a>
+        <a href="bookings.html">My Bookings</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <section class="section-card">
+      <div class="section-title" style="display:flex; align-items:center; gap:16px; justify-content:space-between;">
+        <a class="button" href="homepage.html" style="padding:10px 14px; font-weight:600; display:inline-flex; align-items:center; gap:8px;">
+          <span>&lt;</span> Back
+        </a>
+        <div style="flex:1; margin-left:16px;">
+          <h2>Car Details</h2>
+          <p>Check the car description, pricing, seats and book your preferred schedule.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="car-detail-card">
+          <div class="card-image">
+            <img id="detail-image" src="https://via.placeholder.com/760x420?text=Car+Image" alt="Car image" />
+          </div>
+          <h3 id="detail-title">Loading car details...</h3>
+          <p id="detail-description" class="small-text">Please wait while we load the selected car.</p>
+
+          <div id="detail-specs" class="card-specs">
+            <span id="detail-seats">Seats: -</span>
+            <span id="detail-price">Price: -</span>
+          </div>
+
+          <div class="section-card" style="margin-top: 20px;">
+            <h3>Why choose this car</h3>
+            <ul id="detail-features" class="small-text">
+              <li>Spacious cabin and luggage room</li>
+              <li>Modern safety features</li>
+              <li>Smooth ride with good handling</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h3>Book this car</h3>
+          <p class="small-text">Select your start/end dates and times to book.</p>
+          <div class="form-row">
+            <div class="field-group">
+              <label for="start-date">Start date</label>
+              <input type="date" id="start-date" />
+            </div>
+            <div class="field-group">
+              <label for="start-time">Start time</label>
+              <input type="time" id="start-time" />
+            </div>
+            <div class="field-group">
+              <label for="end-date">End date</label>
+              <input type="date" id="end-date" />
+            </div>
+            <div class="field-group">
+              <label for="end-time">End time</label>
+              <input type="time" id="end-time" />
+            </div>
+          </div>
+          <div class="section-card" style="margin-top: 18px;">
+            <div class="summary-row">
+              <span>Hourly price</span>
+              <strong id="price-per-hour">SGD 0/h</strong>
+            </div>
+            <div class="summary-row">
+              <span>Estimated total</span>
+              <strong id="booking-total">SGD 0</strong>
+            </div>
+            <div id="booking-message" class="form-message" aria-live="polite"></div>
+            <button id="bookBtn" class="button button-primary" type="button">
+Confirm Booking
+</button>
+          </div>
+        </div>
+            </div>
+      </div>
+    </section>
+  </div>
+  <script src="cardetails.js"></script>
+</body>
+</html>

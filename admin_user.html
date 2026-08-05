@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Users - YouDrive Admin</title><link rel="stylesheet" href="styles.css"></head>
+<body><div class="page-shell">
+  <header class="topbar"><a class="brand" href="admin_homepage.html">YouDrive <span class="admin-label">Admin</span></a>
+    <nav class="nav-links"><a href="admin_homepage.html">Cars</a><a class="active" href="admin_user.html">Users</a><a href="admin_profile.html">Profile</a></nav></header>
+  <section class="section-card">
+    <div class="section-title"><div><h2>User accounts</h2><p>View and manage accounts with the user role.</p></div></div>
+    <div id="user-message" aria-live="polite"></div>
+    <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th><th>Action</th></tr></thead>
+      <tbody id="admin-user-list"><tr><td colspan="5">Loading users…</td></tr></tbody></table></div>
+  </section>
+</div><script src="admin.js"></script><script src="admin_user.js"></script></body></html>

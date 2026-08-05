@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Booking - YouDrive</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="homepage.html">YouDrive</a>
+      <nav class="nav-links">
+        <a href="homepage.html">Home</a>
+        <a href="bookings.html">My Bookings</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <section class="section-card">
+      <div class="section-title">
+        <div>
+          <h2>Manage Booking</h2>
+          <p>Edit your booking details, make a payment, or delete the booking if needed.</p>
+        </div>
+      </div>
+
+      <div class="booking-detail-card">
+        <h3>Booking details</h3>
+        <div class="booking-detail-row">
+          <span>Car: <strong id="booking-car">Loading...</strong></span>
+          <span>Booking status: <strong id="booking-status">Loading...</strong></span>
+          <span>Payment status: <strong id="booking-payment-status">Loading...</strong></span>
+          <span>Start date: <strong id="booking-start-date">Loading...</strong></span>
+          <span>End date: <strong id="booking-end-date">Loading...</strong></span>
+          <span>Start time: <strong id="booking-start-time">Loading...</strong></span>
+          <span>End time: <strong id="booking-end-time">Loading...</strong></span>
+          <span>Total: <strong id="booking-total">SGD 0.00</strong></span>
+        </div>
+      </div>
+
+      <form class="booking-form" id="booking-form">
+        <div id="booking-action-message" class="form-message" aria-live="polite"></div>
+        <div class="field-group">
+          <label for="edit-start-date">Start Date</label>
+          <input type="date" id="edit-start-date" required />
+        </div>
+        <div class="field-group">
+          <label for="edit-end-date">End Date</label>
+          <input type="date" id="edit-end-date" required />
+        </div>
+        <div class="field-group">
+          <label for="edit-start-time">Start Time</label>
+          <input type="time" id="edit-start-time" required />
+        </div>
+        <div class="field-group">
+          <label for="edit-end-time">End Time</label>
+          <input type="time" id="edit-end-time" required />
+        </div>
+        <div class="booking-actions">
+          <button type="submit" class="button-primary button">Save changes</button>
+          <button type="button" class="button button-danger" id="delete-booking">Delete booking</button>
+          <button type="button" class="button button-primary" id="payment-page">Go to payment</button>
+          <button type="button" class="button button-primary" id="status-ongoing">Set Ongoing</button>
+          <button type="button" class="button button-primary" id="status-completed">Set Completed</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="bookingsupdate.js"></script>
+</body>
+</html>

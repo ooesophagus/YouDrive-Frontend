@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Payment - YouDrive</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="homepage.html">YouDrive</a>
+      <nav class="nav-links">
+        <a href="homepage.html">Home</a>
+        <a href="bookings.html">My Bookings</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <section class="section-card">
+      <div class="section-title">
+        <div>
+          <h2>Booking Payment</h2>
+          <p>Review your booking details and choose a payment method to confirm your reservation.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="payment-card" id="payment-summary">
+          <h3>Booking summary</h3>
+          <div class="summary-row">
+            <span>Car</span>
+            <strong id="summary-car">Loading...</strong>
+          </div>
+          <div class="summary-row">
+            <span>Dates</span>
+            <strong id="summary-dates">Loading...</strong>
+          </div>
+          <div class="summary-row">
+            <span>Time</span>
+            <strong id="summary-time">Loading...</strong>
+          </div>
+          <div class="summary-row">
+            <span>Booking status</span>
+            <strong id="summary-booking-status">Loading...</strong>
+          </div>
+          <div class="summary-row">
+            <span>Payment status</span>
+            <strong id="summary-payment-status">Loading...</strong>
+          </div>
+          <div class="summary-row">
+            <span>Total payment</span>
+            <strong id="summary-price">SGD 0.00</strong>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h3>Payment details</h3>
+          <div class="form-row">
+            <div class="field-group">
+              <label for="payment-method">Payment method</label>
+              <select id="payment-method">
+                <option value="card">Credit / Debit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="wallet">Wallet</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="billing-email">Email</label>
+              <input type="email" id="billing-email" placeholder="you@example.com" />
+            </div>
+            <div id="payment-message" class="form-message" aria-live="polite"></div>
+            <button class="button-primary button" id="pay-button" type="button">Confirm Payment</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="booking_payment.js"></script>
+</body>
+</html>

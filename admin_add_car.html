@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car - YouDrive Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="page-shell">
+        <header class="topbar"><a class="brand" href="admin_homepage.html">YouDrive <span
+                    class="admin-label">Admin</span></a>
+            <nav class="nav-links"><a class="active" href="admin_homepage.html">Cars</a><a
+                    href="admin_user.html">Users</a><a href="admin_profile.html">Profile</a></nav>
+        </header>
+        <section class="section-card admin-form-shell">
+            <div class="section-title">
+                <div>
+                    <h2>Add a new car</h2>
+                </div><a class="button" href="admin_homepage.html">Back</a>
+            </div>
+            <form id="add-car-form" class="form-card admin-car-form" novalidate>
+                <div class="admin-form-grid">
+                    <div class="field-group"><label for="car-name">Car name</label><input id="car-name" required></div>
+                    <div class="field-group">
+                        <label for="image-url">Car Image URL</label>
+                        <input id="image-url" placeholder="Paste S3 image URL here">
+                    </div>
+                    <div class="field-group"><label for="seat-capacity">Seat capacity</label><input id="seat-capacity"
+                            type="number" min="1" required></div>
+                    <div class="field-group"><label for="price-per-hour">Price per hour (SGD)</label><input
+                            id="price-per-hour" type="number" min="0" step="0.01" required></div>
+                </div>
+                <div class="field-group"><label for="car-desc">Description</label><textarea id="car-desc" maxlength="500"></textarea>
+                </div>
+                <div id="form-message" aria-live="polite"></div><button class="button button-primary" type="submit">Add
+                    Car</button>
+            </form>
+        </section>
+    </div>
+    <script src="admin.js"></script>
+    <script src="admin_add_car.js"></script>
+</body>
+
+</html>

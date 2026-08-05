@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Cars - YouDrive Admin</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="admin_homepage.html">YouDrive <span class="admin-label">Admin</span></a>
+      <nav class="nav-links">
+        <a class="active" href="admin_homepage.html">Cars</a>
+        <a href="admin_user.html">Users</a>
+        <a href="admin_profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <section class="section-card">
+      <div class="section-title">
+        <div><h2>Car listings</h2><p>Manage every vehicle displayed on YouDrive.</p></div>
+        <a class="button button-primary" href="admin_add_car.html">Add Car</a>
+      </div>
+      <div id="admin-message" aria-live="polite"></div>
+      <div id="admin-car-grid" class="car-grid"><div class="feature-card">Loading cars…</div></div>
+    </section>
+  </div>
+  <script src="admin.js"></script>
+  <script src="admin_homepage.js"></script>
+</body>
+</html>

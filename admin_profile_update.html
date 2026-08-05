@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Admin Profile - YouDrive</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="admin_homepage.html">YouDrive <span class="admin-label">Admin</span></a>
+      <nav class="nav-links">
+        <a href="admin_homepage.html">Cars</a>
+        <a href="admin_user.html">Users</a>
+        <a class="active" href="admin_profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <section class="section-card" style="max-width:520px;margin:40px auto">
+      <div class="section-title">
+        <div>
+          <h2>Update Profile Details</h2>
+          <p>Change your administrator profile information.</p>
+        </div>
+      </div>
+
+      <form id="admin-profile-update-form" class="form-card">
+        <div class="field-group">
+          <label for="update-name">Name</label>
+          <input type="text" id="update-name" disabled>
+        </div>
+
+        <div class="field-group">
+          <label for="update-email">Email</label>
+          <input type="email" id="update-email" disabled>
+        </div>
+
+        <div class="field-group">
+          <label for="update-gender">Gender</label>
+          <select id="update-gender">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="update-dob">Date of birth</label>
+          <input type="date" id="update-dob">
+        </div>
+
+        <div class="field-group">
+          <label for="update-phone">Phone number</label>
+          <input type="text" id="update-phone" inputmode="numeric" maxlength="8" pattern="[0-9]{8}" placeholder="8-digit phone number">
+        </div>
+
+        <div id="update-message" class="form-message" aria-live="polite"></div>
+
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px">
+          <button class="button button-primary" type="submit">Save details</button>
+          <button class="button" type="button" id="cancel-update">Cancel</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="admin.js"></script><script src="admin_profile_update.js"></script>
+</body>
+</html>

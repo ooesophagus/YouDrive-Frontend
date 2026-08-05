@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - YouDrive</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="homepage.html">YouDrive</a>
+      <nav class="nav-links">
+        <a href="homepage.html">Home</a>
+        <a href="register.html">Register</a>
+      </nav>
+    </header>
+
+    <section class="section-card" style="max-width: 520px; margin: 40px auto;">
+      <div class="section-title">
+        <div>
+          <h2>Login to your account</h2>
+          <p>Choose your role and sign in to continue.</p>
+        </div>
+      </div>
+
+      <form id="login-form" class="form-card">
+        <div class="field-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="field-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" placeholder="Enter your password" required />
+        </div>
+        <div class="field-group">
+          <label for="login-role">Role</label>
+          <select id="login-role" name="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button class="button-primary button" type="submit">Log in</button>
+        <p class="small-text" style="margin-top: 14px;">Don’t have an account? <a href="register.html">Register here</a>.</p>
+        <div id="login-message" class="form-message"></div>
+      </form>
+
+      <form id="confirm-form" class="form-card" hidden style="margin-top:20px">
+        <h3>Confirm your account</h3>
+        <p class="small-text">Enter the 6-digit code Cognito sent to your email.</p>
+        <div class="field-group">
+          <label for="confirm-email">Email</label>
+          <input type="email" id="confirm-email" required>
+        </div>
+        <div class="field-group">
+          <label for="confirmation-code">Confirmation code</label>
+          <input type="text" id="confirmation-code" inputmode="numeric" maxlength="6" placeholder="6-digit code" required>
+        </div>
+        <button class="button button-primary" type="submit">Confirm account</button>
+        <div id="confirm-message" class="form-message" aria-live="polite"></div>
+      </form>
+    </section>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>

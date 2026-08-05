@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouDrive Rental</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="homepage.html">YouDrive</a>
+      <nav class="nav-links">
+        <a href="homepage.html">Home</a>
+        <a href="bookings.html">My Bookings</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <section class="section-card">
+      <div class="section-title">
+        <div>
+          <h2>Search and filter cars</h2>
+          <p>Type a car name, choose seat capacity, or select a price range to narrow results.</p>
+        </div>
+      </div>
+      <div class="filter-grid">
+        <div class="field-group">
+          <label for="car-search">Search by car name</label>
+          <input type="search" id="car-search" placeholder="e.g. Honda Civic" />
+        </div>
+        <div class="field-group">
+          <label for="seat-filter">Seat capacity</label>
+          <select id="seat-filter">
+            <option value="">All seats</option>
+            <option value="4">4 seats</option>
+            <option value="5">5 seats</option>
+            <option value="7">7 seats</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="price-filter">Price range</label>
+          <select id="price-filter">
+            <option value="">All prices</option>
+            <option value="10-15">SGD 10-15/h</option>
+            <option value="15-20">SGD 15-20/h</option>
+            <option value="20-30">SGD 20-30/h</option>
+          </select>
+        </div>
+        <div class="filter-actions">
+          <button id="apply-filter" class="button-primary button">Apply filters</button>
+          <button id="reset-filter" class="button">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-title">
+        <div>
+    
+        </div>
+      </div>
+      <div id="car-grid" class="car-grid">
+        <div class="feature-card">Loading cars…</div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-title">
+        <div>
+          <h2>Quick booking flow</h2>
+          <p>Navigate from browsing cars to payment in three easy steps.</p>
+        </div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Choose a car</h3>
+          <p>Review images, price, seats and availability before booking.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Fill booking details</h3>
+          <p>Enter your rental dates, pickup location and passenger count.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Complete payment</h3>
+          <p>Confirm booking and make payment to finalize your rental.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const carGrid = document.getElementById("car-grid");
+    let allCars = [];
+
+    function renderCars(cars) {
+      if (!cars || cars.length === 0) {
+        carGrid.innerHTML = '<div class="feature-card">No cars available at the moment.</div>';
+        return;
+      }
+
+      carGrid.innerHTML = cars.map(car => {
+        const title = car.car_name || `Car #${car.car_id}`;
+        const rawImage = car.image_url || "";
+        const image = rawImage.startsWith("http://") || rawImage.startsWith("https://")
+          ? rawImage
+          : "https://via.placeholder.com/400x260?text=Car+Image";
+        const seats = car.seat_capacity || "-";
+        const price = car.price_per_hour ? `SGD ${car.price_per_hour}/h` : "Price unavailable";
+        const description = car.car_desc || "Comfortable ride with great value and easy booking.";
+
+        return `
+          <article class="car-card">
+            <img src="${image}" alt="${title}" />
+            <div class="car-card-body">
+              <h3 class="car-card-title">${title}</h3>
+              <p class="car-card-description">${description}</p>
+              <div class="car-card-meta">
+                <span>${seats} seats</span>
+              </div>
+              <div class="car-card-row">
+                <span class="car-card-price">${price}</span>
+                <a class="button" href="cardetails.html?id=${car.car_id}">View</a>
+              </div>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    function applyFilters() {
+      const searchValue = document.getElementById("car-search").value.trim().toLowerCase();
+      const seatValue = document.getElementById("seat-filter").value;
+      const priceValue = document.getElementById("price-filter").value;
+
+      const filtered = allCars.filter(car => {
+        const name = (car.car_name || "").toLowerCase();
+        const matchesSearch = !searchValue || name.includes(searchValue);
+        const matchesSeat = !seatValue || String(car.seat_capacity) === seatValue;
+
+        let matchesPrice = true;
+        if (priceValue) {
+          const [low, high] = priceValue.split("-").map(Number);
+          const price = Number(car.price_per_hour || 0);
+          matchesPrice = price >= low && price <= high;
+        }
+
+        return matchesSearch && matchesSeat && matchesPrice;
+      });
+
+      renderCars(filtered);
+    }
+
+    document.getElementById("apply-filter").addEventListener("click", applyFilters);
+    document.getElementById("reset-filter").addEventListener("click", () => {
+      document.getElementById("car-search").value = "";
+      document.getElementById("seat-filter").value = "";
+      document.getElementById("price-filter").value = "";
+      renderCars(allCars);
+    });
+
+    async function loadCars() {
+      try {
+        const response = await fetch(`${API}/api/cars`);
+        allCars = await response.json();
+        renderCars(allCars);
+      } catch (error) {
+        carGrid.innerHTML = '<div class="feature-card">Unable to load cars. Please check the server.</div>';
+        console.error(error);
+      }
+    }
+
+    loadCars();
+  </script>
+</body>
+</html>
