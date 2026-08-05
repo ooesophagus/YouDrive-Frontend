@@ -12,12 +12,64 @@ function getUpdatedCar() {
 }
 
 async function loadCar() {
-  if (!carId) { showAdminMessage("form-message", "No car was selected.", true); updateForm.querySelector("button").disabled = true; return; }
-  try {
-    const { car } = await adminFetch(`/api/admin/cars/${encodeURIComponent(carId)}`);
-    setValue("car-name", car.car_name); setValue("image-url", car.image_url); setValue("seat-capacity", car.seat_capacity);
-    setValue("price-per-hour", car.price_per_hour); setValue("car-desc", car.car_desc);
-  } catch (error) { showAdminMessage("form-message", error.message, true); }
+
+    if (!carId) {
+        showAdminMessage(
+            "form-message",
+            "No car was selected.",
+            true
+        );
+
+        updateForm.querySelector("button").disabled=true;
+        return;
+    }
+
+
+    try {
+
+        const cars = await adminFetch(
+            `/api/car/${encodeURIComponent(carId)}`
+        );
+
+
+        const car = cars[0];
+
+
+        setValue(
+            "car-name",
+            car.car_name
+        );
+
+        setValue(
+            "image-url",
+            car.image_url
+        );
+
+        setValue(
+            "seat-capacity",
+            car.seat_capacity
+        );
+
+        setValue(
+            "price-per-hour",
+            car.price_per_hour
+        );
+
+        setValue(
+            "car-desc",
+            car.car_desc
+        );
+
+
+    } catch(error){
+
+        showAdminMessage(
+            "form-message",
+            error.message,
+            true
+        );
+
+    }
 }
 
 updateForm.addEventListener("submit", async event => {
@@ -30,7 +82,10 @@ updateForm.addEventListener("submit", async event => {
   if (car.image_url) { try { new URL(car.image_url); } catch { return showAdminMessage("form-message", "Please enter a valid image URL.", true); } }
   const button = updateForm.querySelector("button[type='submit']"); button.disabled = true;
   try {
-    await adminFetch(`/api/admin/cars/${encodeURIComponent(carId)}`, { method: "PUT", body: JSON.stringify(car) });
+    await adminFetch(`/api/car/${encodeURIComponent(carId)}`, {
+    method:"PUT",
+    body:JSON.stringify(car)
+});
     showAdminMessage("form-message", "Car updated successfully."); setTimeout(() => window.location.href = "admin_homepage.html", 700);
   } catch (error) { showAdminMessage("form-message", error.message, true); button.disabled = false; }
 });
