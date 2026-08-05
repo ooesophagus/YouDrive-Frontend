@@ -1,4 +1,4 @@
-const API = "https://bxfxjwer34.execute-api.ap-southeast-1.amazonaws.com";
+
 const updateForm = document.getElementById("update-car-form");
 const carId = new URLSearchParams(window.location.search).get("id");
 
