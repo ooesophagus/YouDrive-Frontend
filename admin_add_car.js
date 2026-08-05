@@ -1,4 +1,4 @@
-const API = "https://bxfxjwer34.execute-api.ap-southeast-1.amazonaws.com";
+
 const addCarForm = document.getElementById("add-car-form");
 
 function readCarForm() {
