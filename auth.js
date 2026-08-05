@@ -126,31 +126,39 @@ role: role
 if(result.success){
 
 
-    // Save logged-in user details
+    console.log("LOGIN USER:", result.user);
+
+
+    // Save using your existing system
+    setCurrentUser(result.user);
+
+
+    // Also save token if needed
     localStorage.setItem(
-        "user",
-        JSON.stringify(result.user)
+        "token",
+        JSON.stringify(result.token)
     );
 
 
-    // Redirect based on role
-    if(result.user.role.toLowerCase() === "admin"){
 
+    const userRole = result.user.role;
+
+
+    if(userRole === "Admin"){
 
         window.location.href =
         "admin_homepage.html";
 
-
     }
     else{
-
 
         window.location.href =
         "homepage.html";
 
-
     }
 
+
+}
 
 
 }else{
