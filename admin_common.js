@@ -1,4 +1,4 @@
-const API = "https://bxfxjwer34.execute-api.ap-southeast-1.amazonaws.com";
+
 function getAdminUser() {
   try {
     const user = JSON.parse(localStorage.getItem("youdriveUser"));
