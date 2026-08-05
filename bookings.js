@@ -9,7 +9,7 @@ return stored?JSON.parse(stored):null;
 
 async function fetchCars(){
 
-const response=await fetch(`${API}/api/cars`);
+const response=await fetch(`${API}/api/car`);
 
 if(!response.ok){
 throw new Error("Unable to load cars");
