@@ -54,7 +54,9 @@ adminCarGrid.addEventListener("click", async event => {
   }
   button.disabled = true;
   try {
-    await adminFetch(`/api/admin/cars/${encodeURIComponent(button.dataset.deleteCar)}`, { method: "DELETE" });
+    await adminFetch(`${API}/api/car/${encodeURIComponent(button.dataset.deleteCar)}`, { 
+    method:"DELETE"
+});
     showAdminMessage("admin-message", "Car deleted successfully.");
     await loadAdminCars();
   } catch (error) {
