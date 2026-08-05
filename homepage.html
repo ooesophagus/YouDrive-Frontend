@@ -160,7 +160,7 @@
 
     async function loadCars() {
       try {
-        const response = await fetch(`${API}/api/cars`);
+        const response = await fetch(`${API}/api/car`);
         allCars = await response.json();
         renderCars(allCars);
       } catch (error) {
