@@ -11,7 +11,7 @@ async function postJson(url, body) {
 
     const response = await fetch(url, {
 
-        method: "POST",
+        method:"POST",
 
         headers:{
             "Content-Type":"application/json"
@@ -28,18 +28,15 @@ async function postJson(url, body) {
 
 
 
-function showMessage(elementId, message, isError=false){
+function showMessage(id,message,isError=false){
 
-    const el = document.getElementById(elementId);
+    const el=document.getElementById(id);
 
-    if(!el) return;
+    if(!el)return;
 
+    el.textContent=message;
 
-    el.textContent = message;
-
-    el.style.color = isError 
-        ? "#d62828" 
-        : "#0f6eff";
+    el.style.color=isError?"#d62828":"#0f6eff";
 
 }
 
@@ -51,20 +48,6 @@ function setCurrentUser(user){
         "youdriveUser",
         JSON.stringify(user)
     );
-
-}
-
-
-
-function getCurrentUser(){
-
-    const stored =
-    localStorage.getItem("youdriveUser");
-
-
-    return stored 
-        ? JSON.parse(stored)
-        : null;
 
 }
 
@@ -83,361 +66,16 @@ function logoutUser(){
 
 
 
-// ==========================
+
+// ===============================
 // REGISTER
-// ==========================
+// ===============================
+
 
 if(registerForm){
 
 
-registerForm.addEventListener("submit", async event=>{
-
-
-    event.preventDefault();
-
-
-    const name =
-    registerForm.querySelector("#register-name")
-    .value.trim();
-
-
-    const email =
-    registerForm.querySelector("#register-email")
-    .value.trim();
-
-
-    const password =
-    registerForm.querySelector("#register-password")
-    .value;
-
-
-    const confirmPassword =
-    registerForm.querySelector("#register-password-confirm")
-    .value;
-
-
-    const role =
-    registerForm.querySelector("#register-role")
-    .value;
-
-
-
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-
-
-        showMessage(
-            "register-message",
-            "Please enter a valid email address.",
-            true
-        );
-
-        return;
-
-    }
-
-
-
-    if(password.length < 8){
-
-
-        showMessage(
-            "register-message",
-            "Password must contain at least 8 characters.",
-            true
-        );
-
-        return;
-
-    }
-
-
-
-    if(password !== confirmPassword){
-
-
-        showMessage(
-            "register-message",
-            "Passwords do not match.",
-            true
-        );
-
-        return;
-
-    }
-
-
-
-    try{
-
-
-        const result =
-        await postJson(
-            `${API}/api/user/register`,
-            {
-
-
-                full_name:name,
-
-                gmail:email,
-
-                password:password,
-
-                gender:"",
-
-                date_of_birth:null,
-
-                phone_number:"",
-
-                role:role
-
-            }
-        );
-
-
-
-        if(result.message){
-
-
-            showMessage(
-                "register-message",
-                "Registration successful. Please log in."
-            );
-
-
-            setTimeout(()=>{
-
-                window.location.href="login.html";
-
-            },1200);
-
-
-        }
-        else{
-
-
-            showMessage(
-                "register-message",
-                result.message || "Registration failed.",
-                true
-            );
-
-
-        }
-
-
-
-    }
-    catch(error){
-
-
-        console.error(error);
-
-
-        showMessage(
-            "register-message",
-            "Unable to register. Try again later.",
-            true
-        );
-
-
-    }
-
-
-
-});
-
-
-}
-
-
-
-
-
-// ==========================
-// LOGIN
-// ==========================
-
-if(loginForm){
-
-
-loginForm.addEventListener("submit", async event=>{
-
-
-event.preventDefault();
-
-
-
-const loginButton =
-loginForm.querySelector(
-    "button[type='submit']"
-);
-
-
-loginButton.disabled=true;
-
-
-
-const email =
-loginForm.querySelector("#login-email")
-.value.trim();
-
-
-
-const password =
-loginForm.querySelector("#login-password")
-.value;
-
-
-
-const role =
-loginForm.querySelector("#login-role")
-.value;
-
-
-
-try{
-
-
-    const result =
-    await postJson(
-        `${API}/api/user/login`,
-        {
-
-            gmail:email,
-
-            password:password,
-
-            role:role
-
-        }
-    );
-
-
-
-    console.log(
-        "LOGIN RESPONSE:",
-        result
-    );
-
-
-
-    if(result.success){
-
-
-
-        setCurrentUser(
-            result.user
-        );
-
-
-
-        localStorage.setItem(
-            "token",
-            JSON.stringify(result.token)
-        );
-
-
-
-        console.log(
-            "CURRENT USER:",
-            getCurrentUser()
-        );
-
-
-
-        if(result.user.role === "Admin"){
-
-
-            window.location.href =
-            "admin_homepage.html";
-
-
-        }
-        else{
-
-
-            window.location.href =
-            "homepage.html";
-
-
-        }
-
-
-
-    }
-    else{
-
-
-        showMessage(
-            "login-message",
-            result.message || "Login failed.",
-            true
-        );
-
-
-        loginButton.disabled=false;
-
-
-
-        if(
-            (result.message||"")
-            .includes("not been confirmed")
-        ){
-
-
-            confirmForm.hidden=false;
-
-            confirmForm.querySelector(
-                "#confirm-email"
-            ).value=email;
-
-
-        }
-
-
-
-    }
-
-
-
-}
-catch(error){
-
-
-    console.error(error);
-
-
-    showMessage(
-        "login-message",
-        "Invalid email or password.",
-        true
-    );
-
-
-    loginButton.disabled=false;
-
-
-}
-
-
-
-});
-
-
-}
-
-
-
-
-
-// ==========================
-// CONFIRM ACCOUNT
-// ==========================
-
-if(confirmForm){
-
-
-confirmForm.addEventListener(
+registerForm.addEventListener(
 "submit",
 async event=>{
 
@@ -446,45 +84,38 @@ event.preventDefault();
 
 
 
+const name =
+registerForm.querySelector("#register-name").value.trim();
+
+
 const email =
-confirmForm.querySelector(
-"#confirm-email"
-).value.trim();
+registerForm.querySelector("#register-email").value.trim();
+
+
+const password =
+registerForm.querySelector("#register-password").value;
+
+
+const confirmPassword =
+registerForm.querySelector("#register-password-confirm").value;
+
+
+const role =
+registerForm.querySelector("#register-role").value;
 
 
 
-const code =
-confirmForm.querySelector(
-"#confirmation-code"
-).value.trim();
-
-
-
-if(!/^\d{6}$/.test(code)){
-
+if(password!==confirmPassword){
 
 showMessage(
-"confirm-message",
-"Confirmation code must contain 6 digits.",
+"register-message",
+"Passwords do not match.",
 true
 );
 
-
 return;
 
-
 }
-
-
-
-const button =
-confirmForm.querySelector(
-"button[type='submit']"
-);
-
-
-
-button.disabled=true;
 
 
 
@@ -493,32 +124,56 @@ try{
 
 const result =
 await postJson(
-`${API}/api/confirm`,
+`${API}/api/user/register`,
 {
-    email,
-    code
+
+
+full_name:name,
+
+gmail:email,
+
+password:password,
+
+gender:"",
+
+date_of_birth:null,
+
+phone_number:"",
+
+role:role
+
+
 }
 );
 
 
 
+if(result.message){
+
+
 showMessage(
-"confirm-message",
-result.message || "Confirmation completed.",
-!result.success
+"register-message",
+"Registration successful. Please login."
 );
 
 
+setTimeout(()=>{
 
-if(result.success){
+window.location.href="login.html";
+
+},1000);
 
 
-confirmForm.hidden=true;
+
+}
+else{
 
 
-loginForm.querySelector(
-"#login-email"
-).value=email;
+showMessage(
+"register-message",
+"Registration failed.",
+true
+);
 
 
 }
@@ -533,18 +188,148 @@ console.error(error);
 
 
 showMessage(
-"confirm-message",
-"Unable to confirm account. Try again.",
+"register-message",
+"Unable to register.",
 true
 );
 
 
 
 }
-finally{
 
 
-button.disabled=false;
+
+});
+
+
+}
+
+
+
+
+
+
+// ===============================
+// LOGIN
+// ===============================
+
+
+if(loginForm){
+
+
+loginForm.addEventListener(
+"submit",
+async event=>{
+
+
+event.preventDefault();
+
+
+
+const email =
+loginForm.querySelector("#login-email").value.trim();
+
+
+const password =
+loginForm.querySelector("#login-password").value;
+
+
+const role =
+loginForm.querySelector("#login-role").value;
+
+
+
+try{
+
+
+const result =
+await postJson(
+`${API}/api/user/login`,
+{
+
+
+gmail:email,
+
+password:password,
+
+role:role
+
+
+}
+);
+
+
+
+console.log(result);
+
+
+
+if(result.success){
+
+
+
+setCurrentUser(result.user);
+
+
+
+localStorage.setItem(
+"token",
+JSON.stringify(result.token)
+);
+
+
+
+if(
+result.user.role.toLowerCase()
+==="admin"
+){
+
+
+window.location.href=
+"admin_homepage.html";
+
+
+}
+else{
+
+
+window.location.href=
+"homepage.html";
+
+
+}
+
+
+
+}
+else{
+
+
+showMessage(
+"login-message",
+result.message || "Login failed.",
+true
+);
+
+
+}
+
+
+
+
+}
+catch(error){
+
+
+console.error(error);
+
+
+showMessage(
+"login-message",
+"Invalid email or password.",
+true
+);
+
 
 
 }
