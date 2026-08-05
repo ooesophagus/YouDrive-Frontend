@@ -175,10 +175,11 @@ async function loadCars(){
 
         const cars = await response.json();
 
-        console.log(cars);
+console.log(cars);
 
-        renderCars(cars);   // ADD THIS LINE
+allCars = cars;   // store cars globally
 
+renderCars(allCars);
 
     } catch(error){
 
