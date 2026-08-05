@@ -29,4 +29,25 @@
   <script src="admin.js"></script>
   <script src="admin_homepage.js"></script>
 </body>
+  <script>
+
+const currentUser =
+JSON.parse(
+localStorage.getItem("user")
+);
+
+
+
+if(
+    !currentUser ||
+    currentUser.role.toLowerCase() !== "admin"
+){
+
+    window.location.href =
+    "homepage.html";
+
+}
+
+
+</script>
 </html>
