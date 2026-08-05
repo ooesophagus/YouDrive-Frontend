@@ -126,28 +126,34 @@ role: role
 if(result.success){
 
 
-setCurrentUser(result.user);
+    // Save logged-in user details
+    localStorage.setItem(
+        "user",
+        JSON.stringify(result.user)
+    );
 
 
+    // Redirect based on role
+    if(result.user.role.toLowerCase() === "admin"){
 
-if(result.user.role.toLowerCase()==="admin"){
+
+        window.location.href =
+        "admin_homepage.html";
 
 
-window.location.href="admin_homepage.html";
+    }
+    else{
+
+
+        window.location.href =
+        "homepage.html";
+
+
+    }
+
 
 
 }else{
-
-
-window.location.href="homepage.html";
-
-
-}
-
-
-
-}else{
-
 
 showMessage(
 "login-message",
