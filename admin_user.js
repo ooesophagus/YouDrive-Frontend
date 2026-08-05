@@ -27,8 +27,23 @@ function renderUsers(users) {
 }
 
 async function loadUsers() {
-  try { const data = await adminFetch(`${API}/api/user`); renderUsers(data.users || []); }
-  catch (error) { userList.innerHTML = `<tr><td colspan="5">${escapeHtml(error.message)}</td></tr>`; }
+
+  try {
+
+      const data = await adminFetch(`${API}/api/user`);
+
+      console.log(data);
+
+      renderUsers(data);
+
+  }
+  catch(error){
+
+      userList.innerHTML =
+      `<tr><td colspan="5">${escapeHtml(error.message)}</td></tr>`;
+
+  }
+
 }
 
 userList.addEventListener("click", async event => {
