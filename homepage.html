@@ -158,18 +158,43 @@
       renderCars(allCars);
     });
 
-    async function loadCars() {
-      try {
+<script>
+
+const API = "https://bxfxjwer34.execute-api.ap-southeast-1.amazonaws.com";
+
+
+async function loadCars(){
+
+    try {
+
         const response = await fetch(`${API}/api/car`);
-        allCars = await response.json();
-        renderCars(allCars);
-      } catch (error) {
-        carGrid.innerHTML = '<div class="feature-card">Unable to load cars. Please check the server.</div>';
+
+        if(!response.ok){
+            throw new Error("Unable to load cars");
+        }
+
+        const cars = await response.json();
+
+        console.log(cars);
+
+        // your existing display code here
+
+
+    } catch(error){
+
         console.error(error);
-      }
+
+        document.getElementById("car-container").innerHTML =
+        "Unable to load cars. Please check the server.";
+
     }
 
-    loadCars();
+}
+
+
+loadCars();
+
+
   </script>
 </body>
 </html>
