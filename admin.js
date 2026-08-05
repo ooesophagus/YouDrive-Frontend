@@ -1,45 +1,70 @@
-const API = "https://bxfxjwer34.execute-api.ap-southeast-1.amazonaws.com";
-const user=JSON.parse(localStorage.getItem("youdriveUser"));
+const API =
+"https://bxfxjwer34.execute-api.ap-southeast-1.amazonaws.com";
 
-if(!user||user.role!=="admin"){
-    window.location.href="homepage.html";
-}
 
 
 async function adminFetch(url,options={}){
 
-    const admin=JSON.parse(localStorage.getItem("youdriveUser"));
 
-    const response=await fetch(url,{
-        ...options,
-        headers:{
-            "Content-Type":"application/json",
-            "x-admin-email":admin.gmail
-        }
-    });
+const response =
+await fetch(
+url,
+{
+
+...options,
+
+headers:{
+
+"Content-Type":"application/json"
+
+}
+
+}
+);
 
 
-    const data=await response.json();
 
+if(!response.ok){
 
-    if(!response.ok){
-        throw new Error(data.message||"Request failed.");
-    }
-
-
-    return data;
+throw new Error(
+"Request failed"
+);
 
 }
 
 
 
-function showAdminMessage(id,message,isError=false){
+return response.json();
 
-    const element=document.getElementById(id);
 
-    if(!element){
-        return;
-    }
+
+}
+
+
+
+
+function showAdminMessage(
+id,
+message,
+isError=false
+){
+
+
+const el=document.getElementById(id);
+
+
+if(el){
+
+el.textContent=message;
+
+el.style.color =
+isError ? "red":"green";
+
+
+}
+
+
+}
 
 
     element.textContent=message;
